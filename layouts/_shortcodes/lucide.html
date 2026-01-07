@@ -1,0 +1,19 @@
+{{/*
+
+@example
+
+{{< icon icon="cash" type="bootstrap" >}}
+{{< icon icon="cash" type="bootstrap" width="24" height="24" class="text-primary" >}}
+
+*/}}
+
+{{- $iconname := .Get "icon" -}}
+{{- $width := .Get "width" | compare.Default 24 -}}
+{{- $height := .Get "height" | compare.Default 24 -}}
+{{- $class := .Get "class" | compare.Default "" -}}
+{{- $type := .Get "type" | compare.Default "lucide" -}}
+
+{{- $options := dict "icon" $iconname "width" $width
+                     "height" $height "class" $class
+                     "type" $type -}}
+{{- partials.Include "lucide.html" $options -}}

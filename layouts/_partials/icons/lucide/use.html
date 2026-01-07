@@ -1,0 +1,40 @@
+{{- $icontype := site.Params.dnb.icons.default -}}
+{{- with .type -}}
+  {{- $icontype = . -}}
+{{- end -}}
+
+{{- $iconname := .icon | compare.Default "dash-square-dotted" -}}
+{{- $width := .width | compare.Default 20 -}}
+{{- $height := .height | compare.Default 20 -}}
+{{- $class := .class | compare.Default "" -}}
+{{- $icons := page.Store.Get "icons" -}}
+<svg width="{{- $width -}}" height="{{- $height -}}" class="icon icon-{{- $iconname }} {{ $class -}}">
+  {{ if $icons}}
+    {{- if compare.Eq (collections.Index $icons $iconname) true -}}
+      {{- /* symbol already included */ -}}
+    {{- else -}}
+      {{- /* include symbol definition */ -}}
+      {{ partial "inline/dnb/icons/lucide/get-icon.html" (dict "iconname" $iconname) }}
+    {{- end -}}
+  {{ else }}
+    {{- /* first call to the shortcode, include symbol definition */ -}}
+    {{ partial "inline/dnb/icons/lucide/get-icon.html" (dict "iconname" $iconname) }}
+  {{ end }}
+  <use href="#{{- $iconname -}}"{{ with .width }} width="{{- . -}}"{{ end }}{{ with .height }} height="{{- . -}}"{{ end }} />
+</svg>
+
+{{ define "_partials/inline/dnb/icons/lucide/get-icon.html" }}
+  {{ $iconname := .iconname }}
+  {{ $iconpath := fmt.Printf "icons/lucide/%s.svg" $iconname }}
+  {{ $content := "" }}
+  {{ with resources.Get $iconpath }}
+    {{ $content = .Content | safe.HTML }}
+    {{ $content = replaceRE `<svg[\t\r\n ]+` `<svg ` $content }}
+    {{ $replaceId := fmt.Printf "id=%q" $iconname | safe.HTMLAttr }}
+    {{ $replacement := fmt.Printf "<symbol %s " $replaceId }}
+    {{ $content = strings.Replace $content "<svg " $replacement 1 }}
+    {{ $content = strings.Replace $content "</svg>" "</symbol>" 1 }}
+    {{ page.Store.SetInMap "icons" $iconname true }}
+  {{ end }}
+  {{ $content | safe.HTML }}
+{{ end }}

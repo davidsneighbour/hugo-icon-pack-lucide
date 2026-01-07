@@ -1,0 +1,24 @@
+{
+  "name": "@davidsneighbour/hugo-icon-pack-lucide",
+  "version": "0.0.1",
+  "description": "Adding the Lucide icon pack to any GoHugo site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidsneighbour/hugo-icon-pack-lucide.git"
+  },
+  "keywords": [],
+  "author": "Patrick Kollitsch <davidsneighbourdev+gh@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/davidsneighbour/hugo-icon-pack-lucide/issues"
+  },
+  "homepage": "https://github.com/davidsneighbour/hugo-icon-pack-lucide#readme",
+  "devDependencies": {
+    "lucide-static": "0.562.0"
+  }
+}
