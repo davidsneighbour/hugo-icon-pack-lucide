@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/davidsneighbour/hugo-icon-pack-lucide#readme",
   "devDependencies": {
-    "lucide-static": "0.562.0"
+    "lucide-static": "1.7.0"
   }
 }
